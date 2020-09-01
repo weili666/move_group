@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+	xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+	xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+	xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+	xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+	xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+	xmlns:xacro="http://ros.org/wiki/xacro" name="scene">
+ <xacro:include filename="$(find move_group)/urdf/apc_description/urdf/kiva_pod.xacro"/>
+
+  <xacro:include filename="$(find move_group)/urdf/table.xacro"/>
+
+  <link name="world_frame"/>
+
+  <!--kiva description-->
+  <xacro:kiva_pod parent="world_frame" />
+
+
+
+<!--wall description-->
+
+<joint name="world_to_wall_1" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_1"/>
+    <origin rpy="0 0 0" xyz="0 -4.0 0"/>
+  </joint>
+
+ <link name="wall_1">
+   <visual>
+    <geometry>
+     <box size="9.8 0.2 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="9.8 0.2 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_2" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_2"/>
+    <origin rpy="0 0 0" xyz="-5.0 0 0"/>
+  </joint>
+
+ <link name="wall_2">
+   <visual>
+    <geometry>
+     <box size="0.2 8.2 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="0.2 8.2 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_3" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_3"/>
+    <origin rpy="0 0 0" xyz="0 4.0 0"/>
+  </joint>
+
+ <link name="wall_3">
+   <visual>
+    <geometry>
+     <box size="9.8 0.2 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="9.8 0.2 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_4" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_4"/>
+    <origin rpy="0 0 0" xyz="5.0 0 0"/>
+  </joint>
+
+ <link name="wall_4">
+   <visual>
+    <geometry>
+     <box size="0.2 8.2 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="0.2 8.2 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_5" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_5"/>
+    <origin rpy="0 0 0" xyz="-3.0 -1.0 0"/>
+  </joint>
+
+<link name="wall_5">
+   <visual>
+    <geometry>
+     <box size="0.2 5.8 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="0.2 5.8 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+  <joint name="world_to_wall_6" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_6"/>
+    <origin rpy="0 0 0" xyz="-1.0 1.0 0"/>
+  </joint>
+
+  <link name="wall_6">
+   <visual>
+    <geometry>
+     <box size="0.2 5.8 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="0.2 5.8 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+  <joint name="world_to_wall_7" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_7"/>
+    <origin rpy="0 0 0" xyz="1.75 -2.5 0"/>
+  </joint>
+
+  <link name="wall_7">
+   <visual>
+    <geometry>
+     <box size="2.5 0.2 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="2.5 0.2 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+  <joint name="world_to_wall_8" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_8"/>
+    <origin rpy="0 0 0" xyz="3.0 0 0"/>
+  </joint>
+
+  <link name="wall_8">
+   <visual>
+    <geometry>
+     <box size="0.2 4.8 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="0.2 4.8 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+  <joint name="world_to_wall_9" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_9"/>
+    <origin rpy="0 0 0" xyz="1.75 2.5 0"/>
+  </joint>
+
+  <link name="wall_9">
+   <visual>
+    <geometry>
+     <box size="2.5 0.2 1.8"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.9"/>
+    <geometry>
+     <box size="2.5 0.2 1.8"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+  <!-- table-->
+ <xacro:table parent="world_frame" height="0.7" length="0.8" width="0.4"/> 
+
+
+</robot>

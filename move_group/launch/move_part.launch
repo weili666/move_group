@@ -1,0 +1,4 @@
+<launch>
+  <include file="/home/weili/simple_kinova/src/simple_kinova_moveit_config/launch/demo.launch">
+  </include>
+</launch>

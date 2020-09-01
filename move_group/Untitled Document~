@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#killall -9 rosmaster &
+#roscore &
+#gnome-terminal -x bash -c "./test.sh" &
+roslaunch openni_launch openni.launch &
+rosrun heightimage_grasp_planning evaluateGrasps.py &
+rosrun heightimage_grasp_planning heightimage_graspplanning_server_node &
+rosrun tabletop_segmentation tabletop_segmentation &
+rosrun heightimage_grasp_planning heightimage_graspplanning_client_node   &
+exit 0

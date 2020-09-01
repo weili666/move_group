@@ -1,0 +1,4 @@
+<launch>
+  <include file="/home/weili/simple_kinova/src/graspit_ros_planning/launch/ros_graspit_interface.launch">
+  </include>
+</launch>

@@ -1,0 +1,6 @@
+<launch>
+  <include file="/home/weili/simple_kinova/src/move_group/launch/move_part.launch">
+  </include>
+  <include file="/home/weili/simple_kinova/src/move_group/launch/graspit_part.launch">
+  </include>
+</launch>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<robot name="dual_arm" xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<!-- robot -->
+	<!-- robot arms -->
+	<xacro:include filename="$(find kinova_apc_interface)/urdf/jaco_arm.xacro" />
+	<xacro:macro name="arm_connector" params="parent prefix origin_xx:=0 origin_yy:=0 origin_zz:=0 origin_r:=0 origin_p:=0 origin_y:=0">
+		<joint name="${prefix}_arm_base_joint" type="fixed">
+			<parent link="${parent}"/>
+			<child link="${prefix}_arm_base_link"/>
+			<origin xyz="${origin_xx} ${origin_yy} ${origin_zz}" rpy="${origin_r} ${origin_p} ${origin_y}"/>
+		</joint>
+		<link name="${prefix}_arm_base_link"/>
+	</xacro:macro>
+
+	<property name="shoulder_width" value="0.407"/>
+	<property name="arm_height_offset" value="0.45086"/>
+
+	<!-- left arm -->
+	<property name="origin_xx_offset" value="${-0.05936}"/>
+	<xacro:arm_connector parent="base_updown_link" prefix="left" 
+		origin_xx="${origin_xx_offset}" origin_yy="${shoulder_width/2}" origin_zz="${arm_height_offset}" origin_r="${M_PI}" origin_p="${-1/4*M_PI}"/>
+	<xacro:jaco_arm parent="left_arm_base_link" prefix="left_jaco" xyz="0 0 0" rpy="0 0 0"/>
+
+	<!-- right arm -->
+	<xacro:arm_connector parent="base_updown_link" prefix="right" 
+		origin_xx="${origin_xx_offset}" origin_yy="${-shoulder_width/2}" origin_zz="${arm_height_offset}" origin_r="${M_PI}" origin_p="${1/4*M_PI}" origin_y="${M_PI}"/>
+	<xacro:jaco_arm parent="right_arm_base_link" prefix="right_jaco" xyz="0 0 0" rpy="0 0 0"/>
+
+</robot>
+

@@ -1,0 +1,761 @@
+<?xml version="1.0"?>
+
+<robot name="robot1" xmlns:xacro="http://ros.org/wiki/xacro">
+<xacro:include filename="/home/weili/mobirobot/src/move_group/urdf/table.xacro"/>
+
+
+<link name="world_frame"/>
+
+<!-- robot self-->
+<joint name="world_to_robot_x" type="prismatic">
+		<parent link="world_frame"/>
+		<child link="virtual_base_link" />
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<axis xyz="1 0 0"/>
+                <limit lower="-4.0" upper="4.0" effort="75" velocity="2.618"/>
+</joint>
+
+<link name="virtual_base_link"/>
+
+<joint name="world_to_robot_y" type="prismatic">
+		<parent link="virtual_base_link"/>
+		<child link="virtual_base_link_2" />
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<axis xyz="0 1 0"/>
+		<limit lower="-4.0" upper="4.0" effort="75" velocity="2.618"/>
+</joint>
+<link name="virtual_base_link_2"/>
+<joint name="world_to_robot_roll" type="continuous">
+		<parent link="virtual_base_link_2"/>
+		<child link="base_link" />
+		<origin xyz="-3.5 -1.5 0" rpy="0 0 0"/>
+  		<axis xyz="0 0 1"/>
+</joint>
+<link name="base_link">
+   <visual>
+    <geometry>
+     <box size="0.2 0.3 0.1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.05"/>
+    <material name="yellow">
+     <color rgba="1 1 0 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.05"/>
+    <geometry>
+     <box size="0.2 0.3 0.1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="0"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="base_to_arm_base" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    <parent link="base_link"/>
+    <child link="arm_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+  </joint>
+
+  <link name="arm_base">
+   <visual>
+    <geometry>
+     <box size="0.08 0.08 0.04"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <material name="red">
+     <color rgba="1 0 0 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <geometry>
+     <box size="0.08 0.08 0.04"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="3"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="roll_to_arm_base" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    <parent link="arm_base"/>
+    <child link="arm_roll"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+  </joint>
+
+<link name="arm_roll">
+   <visual>
+    <geometry>
+     <box size="0.02 0.03 0.04"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <material name="pep">
+     <color rgba="0 0.5 1 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <geometry>
+     <box size="0.02 0.03 0.04"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="arm_1_to_arm_roll" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.04"/>
+    <parent link="arm_roll"/>
+    <child link="arm_1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+  </joint>
+
+<link name="arm_1">
+   <visual>
+    <geometry>
+     <box size="0.02 0.03 0.4"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    <material name="blue">
+     <color rgba="0 0 1 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    <geometry>
+     <box size="0.02 0.03 0.4"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="5"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="arm_2_to_arm_1" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.385"/>
+    <parent link="arm_1"/>
+    <child link="arm_2"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+  </joint>
+
+  <link name="arm_2">
+   <visual>
+    <geometry>
+     <box size="0.02 0.03 0.3"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0.02 0 0.135"/>
+    <material name="green">
+     <color rgba="0 1 0 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0.02 0 0.135"/>
+    <geometry>
+     <box size="0.02 0.03 0.3"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="5"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link> 
+<joint name="wrist_roll_to_arm_2" type="revolute">
+<origin rpy="0 0 0" xyz="0.02 0 0.285"/>
+    <parent link="arm_2"/>
+    <child link="wrist_roll"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+</joint>
+<link name="wrist_roll">
+ <visual>
+    <geometry>
+     <box size="0.02 0.03 0.04"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <material name="ss">
+     <color rgba="0.5 1 0.5 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.02"/>
+    <geometry>
+     <box size="0.02 0.03 0.04"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="3"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+</link>
+ <joint name="arm_3_to_wrist_roll" type="revolute">
+    <origin rpy="0 0 0" xyz="-0.02 0 0.025"/>
+    <parent link="wrist_roll"/>
+    <child link="arm_3"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+  </joint>
+
+ <link name="arm_3">
+   <visual>
+    <geometry>
+     <box size="0.02 0.03 0.06"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.015"/>
+    <material name="orange">
+     <color rgba="1 0.4 0 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.015"/>
+    <geometry>
+     <box size="-0.02 0 0.015"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link> 
+
+<joint name="wrist_to_arm_3" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.045"/>
+    <parent link="arm_3"/>
+    <child link="wrist"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="75" lower="-3.1416" upper="3.1416" velocity="2.618"/>
+  </joint>
+
+<link name="wrist">
+   <visual>
+    <geometry>
+     <box size="0.02 0.06 0.03"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.015"/>
+    <material name="rrs">
+     <color rgba="1 0 0.4 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.015"/>
+    <geometry>
+     <box size="0.02 0.06 0.03"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link> 
+
+ <joint name="left_gripper_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.03"/>
+    <parent link="wrist"/>
+    <child link="left_gripper"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="75" lower="-0.786" upper="0" velocity="2.618"/>
+  </joint>
+
+  <link name="left_gripper">
+  <visual>
+        <origin rpy="0 -1.571 0" xyz="0 0 0"/>
+          <geometry>
+            <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+          </geometry>
+  </visual>
+  <collision>
+  	<origin rpy="0 -1.571 0" xyz="0 0 0"/>
+	<geometry>
+            <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+          </geometry>
+  </collision>
+  </link>
+
+ <joint name="right_gripper_joint" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0.03"/>
+    <parent link="wrist"/>
+    <child link="right_gripper"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="75" lower="0" upper="0.786" velocity="2.618"/>
+  </joint>
+
+ <link name="right_gripper">
+  <visual>
+        <origin rpy="3.1416 -1.571 0" xyz="0 0 0"/>
+          <geometry>
+            <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+          </geometry>
+  </visual>
+  <collision>
+ 	 <origin rpy="3.1416 -1.571 0" xyz="0 0 0"/>
+          <geometry>
+            <mesh filename="package://pr2_description/meshes/gripper_v0/l_finger.dae"/>
+          </geometry>
+  </collision>
+  </link>
+
+ <joint name="base_to_wheel1" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_1"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="wheel_1">
+   <visual>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+    <origin rpy="0 1.571 0" xyz="0.1 0.1 0"/>
+     <material name="black">
+      <color rgba="0 0 0 1"/>
+     </material>
+   </visual>
+   <collision>
+    <origin rpy="0 1.571 0" xyz="0.1 0.1 0"/>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="10"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>     
+
+ <joint name="base_to_wheel2" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_2"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="wheel_2">
+   <visual>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+    <origin rpy="0 1.571 0" xyz="-0.1 0.1 0"/>
+     <material name="black">
+      <color rgba="0 0 0 1"/>
+     </material>
+   </visual>
+   <collision>
+    <origin rpy="0 1.571 0" xyz="-0.1 0.1 0"/>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="10"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>     
+
+  <joint name="base_to_wheel3" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_3"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="wheel_3">
+   <visual>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+    <origin rpy="0 1.571 0" xyz="0.1 -0.1 0"/>
+     <material name="black">
+      <color rgba="0 0 0 1"/>
+     </material>
+   </visual>
+   <collision>
+    <origin rpy="0 1.571 0" xyz="0.1 -0.1 0"/>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="10"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>     
+
+  <joint name="base_to_wheel4" type="fixed">
+    <parent link="base_link"/>
+    <child link="wheel_4"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+  <link name="wheel_4">
+   <visual>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+    <origin rpy="0 1.571 0" xyz="-0.1 -0.1 0"/>
+     <material name="black">
+      <color rgba="0 0 0 1"/>
+     </material>
+   </visual>
+   <collision>
+    <origin rpy="0 1.571 0" xyz="-0.1 -0.1 0"/>
+    <geometry>
+     <cylinder length="0.05" radius="0.05"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="10"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>     
+ 
+
+<!-- table-->
+ <xacro:table parent="world_frame" height="0.4" length="0.8" width="0.5"/> 
+<joint name="world_to_boxtable" type="fixed">
+    <parent link="world_frame"/>
+    <child link="boxtable"/>
+    <origin rpy="0 0 0" xyz="-0.5 2.7 0"/>
+  </joint>
+<link name="boxtable">
+   <visual>
+    <geometry>
+     <box size="0.5 0.4 0.4"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    <material name="green">
+     <color rgba="0 1 0 1"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    <geometry>
+     <box size="0.5 0.4 0.4"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+<!-- wall -->
+ <joint name="world_to_wall_1" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_1"/>
+    <origin rpy="0 0 0" xyz="0 -3.0 0"/>
+  </joint>
+
+ <link name="wall_1">
+   <visual>
+    <geometry>
+     <box size="7.8 0.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="7.8 0.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_2" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_2"/>
+    <origin rpy="0 0 0" xyz="-4 0 0"/>
+  </joint>
+
+ <link name="wall_2">
+   <visual>
+    <geometry>
+     <box size="0.2 6.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.2 6.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_3" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_3"/>
+    <origin rpy="0 0 0" xyz="0 3 0"/>
+  </joint>
+
+ <link name="wall_3">
+   <visual>
+    <geometry>
+     <box size="7.8 0.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="7.8 0.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_4" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_4"/>
+    <origin rpy="0 0 0" xyz="4 0 0"/>
+  </joint>
+
+ <link name="wall_4">
+   <visual>
+    <geometry>
+     <box size="0.2 6.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.2 6.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_5" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_5"/>
+    <origin rpy="0 0 0" xyz="-2 -2.5 0"/>
+  </joint>
+
+ <link name="wall_5">
+   <visual>
+    <geometry>
+     <box size="0.2 0.8 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.2 0.8 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="30"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_6" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_6"/>
+    <origin rpy="0 0 0" xyz="-2.5 -1 0"/>
+  </joint>
+
+ <link name="wall_6">
+   <visual>
+    <geometry>
+     <box size="2.8 0.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="2.8 0.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="80"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_7" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_7"/>
+    <origin rpy="0 0 0" xyz="-1 -0.5 0"/>
+  </joint>
+
+ <link name="wall_7">
+   <visual>
+    <geometry>
+     <box size="0.2 3 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.2 3 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="80"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_8" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_8"/>
+    <origin rpy="0 0 0" xyz="-2 1 0"/>
+  </joint>
+
+ <link name="wall_8">
+   <visual>
+    <geometry>
+     <box size="0.2 2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.2 2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="80"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+<joint name="world_to_wall_9" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_9"/>
+    <origin rpy="0 0 0" xyz="0.5 2 0"/>
+  </joint>
+
+ <link name="wall_9">
+   <visual>
+    <geometry>
+     <box size="4.8 0.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+     <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="4.8 0.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+
+<joint name="world_to_wall_10" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_10"/>
+    <origin rpy="0 0 0" xyz="2 -0.5 0"/>
+  </joint>
+
+ <link name="wall_10">
+   <visual>
+    <geometry>
+     <box size="0.2 3 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.2 3 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+
+<joint name="world_to_wall_11" type="fixed">
+    <parent link="world_frame"/>
+    <child link="wall_11"/>
+    <origin rpy="0 0 0" xyz="2.5 -1 0"/>
+  </joint>
+
+ <link name="wall_11">
+   <visual>
+    <geometry>
+     <box size="0.8 0.2 1"/>
+    </geometry>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 0" xyz="0 0 0.5"/>
+    <geometry>
+     <box size="0.8 0.2 1"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="100"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+</robot>

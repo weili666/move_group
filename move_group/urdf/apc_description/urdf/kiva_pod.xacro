@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<robot name="kiva_pod" xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<property name="M_PI" value="3.14159265358979"/>
+	<group name = "kiva_pod_property_set">
+		<!-- calibration data @test -->
+		<property name="cali_xx" value="0.63"/>
+		<property name="cali_yy" value="-4.0422"/>
+		<property name="cali_zz" value="${0.385}"/>
+		<property name="cali_r" value="0.0"/>
+		<property name="cali_p" value="0.0"/>
+		<property name="cali_y" value="0.0"/>
+	</group>
+
+	<!-- kiva pod-->
+	<joint name="world_to_pod" type="fixed">
+		<parent link="world_frame"/>
+		<child link="pod_lowres" />
+		<origin xyz="${cali_xx} ${cali_yy} ${cali_zz}" rpy="${cali_r} ${cali_p} ${cali_y}"/>
+	</joint>
+	<link name="pod_lowres">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://move_group/urdf/apc_description/meshes/NJKivaShelf.STL"/>
+			</geometry>
+			<material name="pod_color">
+				<color rgba="0.55 0.35 0 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://move_group/urdf/apc_description/meshes/NJKivaShelf.STL"/>
+			</geometry>
+		</collision>
+	</link>
+
+</robot>
+

@@ -1,0 +1,41 @@
+<robot
+  name="support">
+  <link
+    name="support">
+    <inertial>
+      <origin
+        xyz="0.029769 -0.0126599999999999 0.97862"
+        rpy="0 0 0" />
+      <mass
+        value="8.1734" />
+      <inertia
+        ixx="3.14464667119818"
+        ixy="0.0415389708201151"
+        ixz="-0.00168971152269903"
+        iyy="-0.0861920217938598"
+        iyz="-3.01021801246017"
+        izz="0.08619202179386" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="1.5707963267949 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://support/meshes/support.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh filename="package://support/meshes/support.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

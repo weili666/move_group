@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+	xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+	xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+	xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+	xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+	xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+	xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+	xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+	xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+	xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+	xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+	xmlns:xacro="http://ros.org/wiki/xacro" name="jaco">
+
+<xacro:include filename="$(find move_group)/urdf/apc_description/urdf/jaco_arm.xacro"/>
+  
+
+<link name="world_frame">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size = "0 0 0" />
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<box size = "0 0 0" />
+			</geometry>
+		</collision>
+	</link>
+
+  <joint name="support_to_base" type="fixed">
+  	<origin rpy="0 0 0" xyz="0 0 0"/>
+  	<parent link="world_frame"/>
+  	<child link="support_link"/>
+  	<axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="support_link">
+    <inertial>
+      <origin
+        xyz="0.029769 -0.0126599999999999 0.97862"
+        rpy="0 0 0" />
+      <mass
+        value="8.1734" />
+      <inertia
+        ixx="3.14464667119818"
+        ixy="0.0415389708201151"
+        ixz="-0.00168971152269903"
+        iyy="-0.0861920217938598"
+        iyz="-3.01021801246017"
+        izz="0.08619202179386" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 -0.28"
+        rpy="1.5707963267949 0 -1.5707963267949" />
+      <geometry>
+        <mesh filename="package://move_group/urdf/support/meshes/support.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 -0.28"
+        rpy="1.5707963267949 0 -1.5707963267949" />
+      <geometry>
+        <mesh filename="package://move_group/urdf/support/meshes/support.STL" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <xacro:jaco_arm parent="support_link" prefix="jaco" xyz="0 0 1.22" rpy="3.141592653 -0.785 1.5707963267949"/>
+
+
+  <!-- table-->
+<joint name="world_to_table" type="fixed">
+    <parent link="world_frame"/>
+    <child link="table"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+ <link name="table">
+   <visual>
+    <geometry>
+     <box size="4.2 1.21 0.40"/>
+    </geometry>
+    <origin rpy="0 0 1.5707963267949" xyz="-1.025 0 0.2"/>
+    <material name="white">
+     <color rgba="1 1 1 0.5"/>
+    </material>
+   </visual>
+   <collision>
+    <origin rpy="0 0 1.5707963267949" xyz="-1.025 0 0.2"/>
+    <geometry>
+     <box size="0.5 0.05 2"/>
+    </geometry>
+   </collision>
+   <inertial>
+    <mass value="1000"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   </inertial>
+  </link>
+
+  
+</robot>

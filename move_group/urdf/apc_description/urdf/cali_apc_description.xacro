@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<robot name="home" xmlns:xacro="http://ros.org/wiki/xacro">
+	<link name="world_frame"/>
+
+	<property name="M_PI" value="3.14159265358979"/>
+	<xacro:include filename="$(find apc_description)/urdf/cali_single_axis.xacro" />
+	<xacro:include filename="$(find apc_description)/urdf/dual_arm.xacro" />
+
+	<!-- calibration board -->
+	<property name="board_length" value="0.36" />
+	<property name="board_width" value="0.36" />
+	<property name="hand_length" value="0.125"/>
+	<xacro:macro name="calibration_board" params="parent prefix origin_xx:=0 origin_yy:=0 origin_zz:=0 origin_r:=${M_PI} origin_p:=${M_PI/2} origin_y:=0">
+		<joint name="${prefix}_arm_hand_joint" type="fixed">
+			<parent link="${parent}"/>
+			<child link="${prefix}_calibration_board_link"/>
+			<origin xyz="${origin_xx} ${origin_yy} ${origin_zz-board_length/2-hand_length}" rpy="${origin_r} ${origin_p} ${origin_y}"/>
+		</joint>
+		<link name="${prefix}_calibration_board_link">
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<box size="${board_width} ${board_length} 0.001" />
+				</geometry>
+				<material name="abb_orange">
+					<color rgba="1 0.43 0 1"/>
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<box size="${board_width} ${board_length} 0.001" />
+				</geometry>
+			</collision>
+		</link>
+	</xacro:macro>
+
+	<xacro:calibration_board parent="left_jaco_link_hand" prefix="left"/>
+	<xacro:calibration_board parent="right_jaco_link_hand" prefix="right"/>
+
+</robot>
+

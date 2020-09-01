@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<robot name="home" xmlns:xacro="http://ros.org/wiki/xacro">
+	<!-- xacro camera-->
+	<!-- prefix = left coeff = 1 or prefix = right coeff = -1 -->
+	<xacro:macro name="camera" params="parent prefix coeff camera_x:=0.025 camera_y:=0.15 camera_z:=0.093">
+		<property name="M_PI" value="3.14159265358979" />
+		<joint name="${prefix}_camera_joint" type="fixed">
+			<parent link="${parent}"/>
+			<child link="${prefix}_camera_link" />
+			<origin xyz="${camera_x} ${coeff*camera_y} ${camera_z}" rpy="0 0 0"/>
+		</joint>
+
+		<link name="${prefix}_camera_link">
+			<visual>
+				<origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+				<geometry>
+					<mesh filename="package://apc_description/meshes/xsens_model.STL"/>
+				</geometry>
+				<material name="camera_color">
+					<color rgba="0 0 0 1"/>
+				</material>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+				<geometry>
+					<mesh filename="package://apc_description/meshes/xsens_model.STL"/>
+				</geometry>
+			</collision>
+		</link>
+	</xacro:macro>
+
+
+	<xacro:camera parent="base_updown_link" prefix="left" coeff="1"/>
+	<xacro:camera parent="base_updown_link" prefix="right" coeff="-1"/>
+
+</robot>

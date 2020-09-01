@@ -1,0 +1,3 @@
+<launch>
+  <node name="graspit_ac" pkg="graspit_ros_planning" type="graspit_ac.py" output="screen"/>
+</launch>

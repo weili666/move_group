@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+
+<robot name="single_axis" xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<property name="M_PI" value="3.14159265358979"/>
+	<!-- single axis to support the robot  -->
+	<group name="single_axis_property_set">
+		<!-- single axis size-->
+		<property name="sa_width" value="0.15"/>
+		<property name="sa_length" value="0.06"/>
+		<property name="sa_height" value="1.28"/>
+		<property name="sa_xx_offset" value="0.08"/>
+		<property name="highest_height" value="${1.2}"/>
+		<property name="lowest_height" value="${highest_height-0.8}"/>
+		<property name="sa_height_offset" value="0.1"/>
+	</group>
+
+	<!-- robot to base link -->
+	<joint name="world_to_robot_x" type="prismatic">
+		<parent link="world_frame"/>
+		<child link="virtual_base_link" />
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<axis xyz="1 0 0"/>
+                <limit lower="-4.0" upper="4.0" effort="75" velocity="2.618"/>
+	</joint>
+
+	<link name="virtual_base_link"/>
+
+	<joint name="world_to_robot_y" type="prismatic">
+		<parent link="virtual_base_link"/>
+		<child link="virtual_base_link_2" />
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+  		<axis xyz="0 1 0"/>
+		<limit lower="-4.0" upper="4.0" effort="75" velocity="2.618"/>
+	</joint>
+	<link name="virtual_base_link_2"/>
+	<joint name="world_to_robot_roll" type="continuous">
+		<parent link="virtual_base_link_2"/>
+		<child link="base_link" />
+		<origin xyz="-2.4 -1.8 0" rpy="0 0 0"/>
+  		<axis xyz="0 0 1"/>
+	</joint>
+
+	<link name="base_link">
+		<visual>
+			<origin xyz="0 0 ${sa_height_offset/2}" rpy="0 0 0"/>
+			<geometry>
+				<box  size="0.6 0.4 ${sa_height_offset}"/>
+			</geometry>
+			<material name="updown_white">
+				<color rgba="0.9 0.9 0.85 0.5"/>
+			</material>
+		</visual>
+        <collision>
+			<origin xyz="0 0 ${sa_height_offset/2}" rpy="0 0 0"/>
+			<geometry>
+				<box  size="0.6 0.4 ${sa_height_offset}"/>
+			</geometry>
+		</collision>
+	</link>
+	
+	<joint name="base_to_wheel1" type="fixed">
+   	<parent link="base_link"/>
+    	<child link="wheel_1"/>
+    	<origin rpy="0 0 0" xyz="0 0 0"/>
+  	</joint>
+
+  	<link name="wheel_1">
+   	<visual>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+    	<origin rpy="1.571  0  0" xyz="0.3 0.22 0"/>
+     	<material name="black">
+      	<color rgba="0 0 0 1"/>
+     	</material>
+   	</visual>
+   	<collision>
+    	<origin rpy="1.571  0  0" xyz="0.3 0.22 0"/>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+   	</collision>
+   	<inertial>
+    	<mass value="10"/>
+    	<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   	</inertial>
+  	</link>     
+
+	<joint name="base_to_wheel2" type="fixed">
+   	<parent link="base_link"/>
+    	<child link="wheel_2"/>
+    	<origin rpy="0 0 0" xyz="0 0 0"/>
+  	</joint>
+
+  	<link name="wheel_2">
+   	<visual>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+    	<origin rpy="1.571  0  0" xyz="-0.3 0.22 0"/>
+     	<material name="black">
+      	<color rgba="0 0 0 1"/>
+     	</material>
+   	</visual>
+   	<collision>
+    	<origin rpy="1.571  0  0" xyz="-0.3 0.22 0"/>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+   	</collision>
+   	<inertial>
+    	<mass value="10"/>
+    	<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   	</inertial>
+  	</link>     
+
+	<joint name="base_to_wheel3" type="fixed">
+   	<parent link="base_link"/>
+    	<child link="wheel_3"/>
+    	<origin rpy="0 0 0" xyz="0 0 0"/>
+  	</joint>
+
+  	<link name="wheel_3">
+   	<visual>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+    	<origin rpy="1.571  0  0" xyz="-0.3 -0.22 0"/>
+     	<material name="black">
+      	<color rgba="0 0 0 1"/>
+     	</material>
+   	</visual>
+   	<collision>
+    	<origin rpy="1.571  0  0" xyz="-0.3 -0.22 0"/>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+   	</collision>
+   	<inertial>
+    	<mass value="10"/>
+    	<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   	</inertial>
+  	</link>     
+
+	<joint name="base_to_wheel4" type="fixed">
+   	<parent link="base_link"/>
+    	<child link="wheel_4"/>
+    	<origin rpy="0 0 0" xyz="0 0 0"/>
+  	</joint>
+
+  	<link name="wheel_4">
+   	<visual>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+    	<origin rpy="1.571  0  0" xyz="0.3 -0.22 0"/>
+     	<material name="black">
+      	<color rgba="0 0 0 1"/>
+     	</material>
+   	</visual>
+   	<collision>
+    	<origin rpy="1.571  0  0" xyz="0.3 -0.22 0"/>
+    	<geometry>
+     	<cylinder length="0.05" radius="0.05"/>
+    	</geometry>
+   	</collision>
+   	<inertial>
+    	<mass value="10"/>
+    	<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+   	</inertial>
+  	</link>     
+
+
+
+	<joint name="base_to_singleaxis" type="fixed">
+		<parent link="base_link"/>
+		<child link="singleaxis_link" />
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+	</joint>
+	<link name="singleaxis_link">
+		<visual>
+			
+			<origin xyz="${-sa_length/2-sa_xx_offset} 0 ${sa_height/2+sa_height_offset}" rpy="0 ${-M_PI/2} ${M_PI}"/>
+			<geometry>
+				<mesh filename="package://apc_description/meshes/single_axis.stl"/>
+			</geometry>
+			<material name="updown_white">
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="${-sa_length/2-sa_xx_offset} 0 ${sa_height/2+sa_height_offset}" rpy="0 ${-M_PI/2} ${M_PI}"/>
+			<geometry>
+				<mesh filename="package://apc_description/meshes/single_axis.stl"/>
+			</geometry>
+		</collision>
+	</link>
+
+	<!-- base updown link -->
+    <joint name="base_updown_joint" type="prismatic">
+    	<parent link="base_link" />
+    	<child link="base_updown_link" />
+    	<origin xyz="0 0 0" rpy="0 0 0"/>
+    	<axis xyz="0 0 1"/>
+    	<limit 
+			lower="${lowest_height}"
+			upper="${highest_height}"
+    		effort="75"
+		velocity="2.18" />
+    </joint>
+
+    <link name="base_updown_link">
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://apc_description/meshes/base_updown_link.STL"/>
+			</geometry>
+			<material name="jaco_gray">
+				<color rgba="${54/255} ${54/255} ${54/255} 1.0"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://apc_description/meshes/base_updown_link.STL"/>
+			</geometry>
+		</collision>
+	</link>
+
+
+
+
+</robot>
+
